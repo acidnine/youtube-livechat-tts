@@ -113,11 +113,13 @@ def main():
     engine.say(f"connected to YouTube chat")
     engine.runAndWait()
     
+    sleepTimer = 10000
+    
     while (True):
         #
         # REMEMBER YOU ONLY GET 10k QUERIES PER DAY (DEFAULT) AND EACH REQUEST IS EQUAL TO 5 OF THOSE SO 5 SECOND GIVES A MAX OF >3 HOURS
         #
-        time.sleep(10)
+        time.sleep(sleepTimer/1000)
         
         notReadMessages = []  # List of messages not yet read by bot
         
@@ -132,6 +134,8 @@ def main():
             engine.runAndWait()
             time.sleep(10)
             continue
+        
+        sleepTimer = response.get('pollingIntervalMillis',10000)
         
         allMessages = response.get('items', [])
         
